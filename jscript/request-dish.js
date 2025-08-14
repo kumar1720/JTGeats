@@ -1,21 +1,33 @@
-modal2 = document.getElementsByClassName("background-blured")[1];
+const modal2 = document.getElementsByClassName("background-blured")[1];
+let scrollY = 0;
 
-function openModal2(){
+function openModal2() {
     modal2.classList.remove("hide2");
-    // const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+
+    scrollY = window.scrollY;
+
     const body = document.body;
-    body.style.height = '100vh';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
     body.style.overflowY = 'hidden';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    body.style.width = '100%';
 }
 
-function closeModal2(){
+function closeModal2() {
     modal2.classList.add("hide2");
+
     const body = document.body;
-    const scrollY = body.style.top;
+    const scrollTop = parseInt(body.style.top || '0') * -1;
+
     body.style.position = '';
     body.style.top = '';
-    body.style.height = '';
+    body.style.left = '';
+    body.style.right = '';
     body.style.overflowY = '';
+    body.style.width = '';
     
+
+    window.scrollTo(0, scrollTop);
 }

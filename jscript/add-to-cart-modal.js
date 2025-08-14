@@ -1,22 +1,24 @@
+const modal = document.getElementsByClassName("background-blured")[0];
 
-modal = document.getElementsByClassName("background-blured")[0];
+window.addEventListener('scroll', () => {
+  document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+});
 
-function openModal(){
-    modal.classList.remove("hide1");
-    const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
-    const body = document.body;
-    body.style.height = '100vh';
-    body.style.overflowY = 'hidden';
+function openModal() {
+  const scrollY = window.scrollY;
+
+  document.documentElement.style.setProperty('--scroll-y', scrollY + 'px');
+  modal.classList.remove("hide1");
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.width = '100%';
 }
 
-function closeModal(){
-    modal.classList.add("hide1");
-
-    const body = document.body;
-    const scrollY = body.style.top;
-    body.style.position = '';
-    body.style.top = '';
-    body.style.height = '';
-    body.style.overflowY = '';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+function closeModal() {
+  modal.classList.add("hide1");
+  const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  window.scrollTo(0, parseInt(scrollY || '0'));
 }
